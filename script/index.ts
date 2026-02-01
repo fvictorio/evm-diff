@@ -7,6 +7,7 @@ import {
 } from './checks/evm-stack-addresses';
 import { checkOpcodes } from './checks/opcodes';
 import { checkPrecompiles } from './checks/precompiles';
+import { checkTransactionTypes, type TransactionType } from './checks/transaction-types';
 import { createRetryClient } from './checks/utils';
 import type { Metadata } from './types';
 import { join } from 'node:path';
@@ -30,6 +31,7 @@ export type Chain = {
 		implemented: boolean;
 	}[];
 	evmStackAddresses: Record<EVMStack, EVMStackResult[]>;
+	transactionTypes: TransactionType[];
 };
 
 async function main() {
@@ -40,12 +42,14 @@ async function main() {
 	const client = initClient(rpcUrls);
 
 	// Fetch data.
-	const [opcodes, deployedContracts, precompiles, evmStackAddresses] = await Promise.all([
-		checkOpcodes(client),
-		checkDeployedContracts(client),
-		checkPrecompiles(client),
-		checkEvmStackAddresses(client),
-	]);
+	const [opcodes, deployedContracts, precompiles, evmStackAddresses, transactionTypes] =
+		await Promise.all([
+			checkOpcodes(client),
+			checkDeployedContracts(client),
+			checkPrecompiles(client),
+			checkEvmStackAddresses(client),
+			checkTransactionTypes(client),
+		]);
 
 	// Format and save the output.
 	const chain: Chain = {
@@ -61,6 +65,7 @@ async function main() {
 		deployedContracts,
 		precompiles,
 		evmStackAddresses,
+		transactionTypes,
 	};
 	await save(chainId, chain);
 }

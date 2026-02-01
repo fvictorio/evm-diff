@@ -9,6 +9,7 @@ import { DiffJSON } from '@/components/diff/DiffJSON';
 import { DiffMetadata } from '@/components/diff/DiffMetadata';
 import { DiffOpcodes } from '@/components/diff/DiffOpcodes';
 import { DiffPrecompiles } from '@/components/diff/DiffPrecompiles';
+import { DiffTransactionTypes } from '@/components/diff/DiffTransactionTypes';
 import { Copyable } from '@/components/ui/Copyable';
 import { Toggle } from '@/components/ui/Toggle';
 import { chainLogoUrl } from '@/lib/utils';
@@ -29,7 +30,7 @@ const componentMap: Record<string, React.ComponentType<Props<any>>> = {
 	deployedContracts: DiffDeployedContracts,
 	precompiles: DiffPrecompiles,
 	evmStackAddresses: DiffEVMStackAddresses,
-	// signatureTypes:  DiffSignatureTypes ,
+	transactionTypes: DiffTransactionTypes,
 };
 
 const Diff = () => {
