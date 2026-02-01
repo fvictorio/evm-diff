@@ -40,4 +40,9 @@ export const featureMap: Record<string, Feature> = {
 			'Existence of "stack-specific" accounts on a chain, to determine what kind of chain it is. If an account exists on both chains but shows up in the diff, it indicates the code hash is different. This does not necessarily mean the contract is different.',
 		hide: true, // TODO refactor this into a summary of what stack/config is used, instead of showing all stack addresses.
 	},
+	transactionTypes: {
+		title: 'Transaction Types',
+		infoText:
+			'Which transaction types are supported by the chain (Legacy, EIP-2930, EIP-1559, EIP-4844, EIP-7702).',
+	},
 };
